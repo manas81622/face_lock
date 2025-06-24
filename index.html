@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Face Lock</title>
+    <style>
+        /* Add your locking animation styles here */
+    </style>
+</head>
+<body>
+    <div id="lock-screen">Locked</div>
+    <script>
+        window.onload = function() {
+            fetch('http://127.0.0.1:5000/unlock', {
+                method: 'POST'
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data); // Debugging line
+                if (data.status === 'unlocked') {
+                    document.getElementById('lock-screen').style.display = 'none';
+                } else {
+                    document.getElementById('lock-screen').innerText = 'Locked';
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        };
+    </script>
+</body>
+</html>
